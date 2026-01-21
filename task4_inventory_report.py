@@ -65,18 +65,25 @@ def inventory_report(products):
         }
     total_products = 0
     in_stock = 0
+    total_value = 0
+    categories = set()
     for product in products:
         total_products += 1
+        quantity = product.get("quantity", 1)
+        price = product["price"]
+        total_value += price * quantity
+
         if product.get("in_stock", True):
             in_stock += 1
-    total_quantity = products.get("quantity", 1)
-    unique = set[products.get("categories")]
-    total_value = sum(products.get("price") * total_products)
+        
+        if "category" in product:
+            categories.add(product["category"])
+    
     return {
         "total_products": total_products,
         "total_value": total_value,
         "in_stock_count": in_stock,
-        "categories": unique,
+        "categories": categories,
     }
 
 
